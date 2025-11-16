@@ -5,12 +5,8 @@ exports.registerValidation = [
   body('name').notEmpty().withMessage('Name is required'),
   body('email').isEmail().withMessage('Invalid email format'),
   body('password')
-    .isLength({ min: 6 })
+    .isLength({ min: 8 })
     .withMessage('Password must be at least 6 characters'),
-  body('age')
-    .optional()
-    .isInt({ min: 1 })
-    .withMessage('Age must be a positive number'),
 
   // Middleware to check errors
   (req, res, next) => {
@@ -22,3 +18,9 @@ exports.registerValidation = [
     next();
   },
 ];
+
+exports.registerSchema = Joi.object({
+  name: Joi.string().min(2).required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().min(8).required(),
+});
