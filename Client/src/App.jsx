@@ -5,8 +5,6 @@ import SignIn from './pages/SignIn'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 function App() {
-  const [] = useState(0)
-
   return (
     <BrowserRouter>
       <Routes>
