@@ -42,7 +42,7 @@ export default function SignUp() {
                               </div>
                               <button type='submit' className='btn btn-success w-100 rounded-0'>Register</button>
                         </form>
-                        <p>Already have an account?<button>Login</button></p>
+                        <p>Already have an account?<Link to={SignIn}>Login</Link></p>
 
                   </div>
             </div>
