@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import SignIn from './SignIn';
 import {Link} from 'react-router-dom';
+import axios from 'axios'
 
 export default function SignUp() {
       const [name, setName] = useState('');
@@ -9,7 +10,7 @@ export default function SignUp() {
       
       const handleSubmit = async (e) => {
             e.preventDefault();
-            axios.post('', {name, email, password})
+            axios.post('process.env.SERVER_URL', {name, email, password})
                   .then(response => {
                         console.log('User registered successfully:', response.data);
                   })
@@ -26,23 +27,23 @@ export default function SignUp() {
                                     <label htmlFor="name">
                                           <strong>Name</strong>
                                     </label>
-                                    <input type="text" placeholder='Enter your name' name='name' className='form-control rounded-0' />
+                                    <input type="text" placeholder='Enter your name' name='name' className='form-control rounded-0' onChange={(e) => setName(e.target.value)} />
                               </div>
                               <div className='mb-3'>
                                     <label htmlFor="email">
                                           <strong>Email</strong>
                                     </label>
-                                    <input type="email" placeholder='Enter your email' autoComplete='off' name='email' className='form-control rounded-0' />
+                                    <input type="email" placeholder='Enter your email' autoComplete='off' name='email' className='form-control rounded-0'  onChange={(e) => setEmail(e.target.value)}  />
                               </div>
                               <div className='mb-3'>
                                     <label htmlFor="name">
                                           <strong>Password</strong>
                                     </label>
-                                    <input type="password" placeholder='Enter your password' name='password' className='form-control rounded-0' />
+                                    <input type="password" placeholder='Enter your password' name='password' className='form-control rounded-0'  onChange={(e) => setPassword(e.target.value)}  />
                               </div>
                               <button type='submit' className='btn btn-success w-100 rounded-0'>Register</button>
                         </form>
-                        <p>Already have an account?<Link to={SignIn}>Login</Link></p>
+                        <p>Already have an account?<Link to='/signin'>Login</Link></p>
 
                   </div>
             </div>
