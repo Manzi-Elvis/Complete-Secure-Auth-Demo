@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import SignIn from './SignIn';
 import {Link} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
 export default function SignUp() {
@@ -10,9 +11,10 @@ export default function SignUp() {
       
       const handleSubmit = async (e) => {
             e.preventDefault();
-            axios.post('process.env.SERVER_URL', {name, email, password})
+            axios.post(process.env.SERVER_URL, {name, email, password})
                   .then(response => {
                         console.log('User registered successfully:', response.data);
+                        navigate('/signin')
                   })
                   .catch(error => {
                         console.error('There was an error registering the user!', error);
