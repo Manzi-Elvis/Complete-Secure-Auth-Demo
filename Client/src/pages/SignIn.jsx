@@ -1,11 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
 export default function SignIn() {
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+      axios.post(process.env.SERVER_URL, {email, password})
+        .then(response => {
+          console.log('User signed in successfully:', response.data);
+          navigate('/signin')
+        })
+        .catch(error => {
+          console.error('There was an error signing in the user!', error);
+        });
+    }
+
   return(
     <div className="d-flex justify-content-center align-items-center bg-secondary vh-100">
     <div className='bg-white p-3 rounded w-25'>
       <h2>Sign In</h2>
-      <form action="">
+      <form action = { handleSubmit}>
         <div className='mb-3'>
           <label htmlFor="email">
             <strong>Email</strong>
