@@ -43,3 +43,24 @@ exports.getUserById = async (req, res) => {
             res.status(500).json({ message: error.message });
       }
 }
+
+// Update user
+exports.updateUser = async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    user.name = name;
+    user.email = email;
+
+    if (password && password.trim() !== '') {
+      user.password = await bcrypt.hash(password, 10);
+    }
+
+    await user.save();
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
