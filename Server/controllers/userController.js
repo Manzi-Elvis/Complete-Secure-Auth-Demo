@@ -3,22 +3,33 @@ const bcrypt = require('bcryptjs')
 
 //Creating a new user:
 exports.createUser = async (req, res) => {
-      try{
-            const { name, email, password } = req.body
-            if (!name || !email || !password ){
-                  return res.status(400).json({message: 'All fields are required'})
-            }
-            const existing = await UserActivation.findOne({email});
-            if(existing){
-                  return res.status(400).json({message: "Email already exists"});
-            }
-            const hashedPassword = await bcrypt.hash(password, 10);
-            const user = await User.create({name, email, password: hashedPassword});
-            res.status(201).json(user)
-      }
-      catch(error){
-            res.status(500).json({message: error.message})
-      }
+    try {
+        const { name, email, password } = req.body;
+
+        // 1️⃣ Check all fields are provided
+        if (!name || !email || !password) {
+            return res.status(400).json({ message: 'All fields (name, email, password) are required' });
+        }
+        
+        // 2️⃣ Check if email already exists in User collection
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: 'Email already exists' });
+        }
+
+        // 3️⃣ Hash password safely
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // 4️⃣ Create the new user
+        const user = await User.create({ name, email, password: hashedPassword });
+
+        // 5️⃣ Success
+        res.status(201).json({ message: 'User created successfully', user });
+
+    } catch (error) {
+        console.error('Unexpected error:', error);
+        res.status(500).json({ message: 'Unexpected server error', error: error.message });
+    }
 };
 
 // Get all users:
