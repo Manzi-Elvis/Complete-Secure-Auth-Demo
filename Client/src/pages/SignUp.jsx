@@ -9,7 +9,7 @@ export default function SignUp() {
       const [email, setEmail] = useState('');
       const [password, setPassword] = useState('');
       
-      const handleSubmit = async (e) => {
+      const handleSubmit = (e) => {
             e.preventDefault();
             axios.post(process.env.SERVER_URL, {name, email, password})
                   .then(response => {
