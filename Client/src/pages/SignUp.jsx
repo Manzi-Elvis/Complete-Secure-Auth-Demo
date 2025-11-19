@@ -1,7 +1,6 @@
 import {useState} from 'react';
 import SignIn from './SignIn';
-import {Link} from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import axios from 'axios'
 
 export default function SignUp() {
@@ -9,6 +8,8 @@ export default function SignUp() {
       const [email, setEmail] = useState('');
       const [password, setPassword] = useState('');
       
+      const navigate = useNavigate()
+
       const handleSubmit = (e) => {
             e.preventDefault();
             axios.post(process.env.SERVER_URL, {name, email, password})
