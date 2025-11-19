@@ -5,12 +5,12 @@ const bcrypt = require('bcryptjs')
 exports.createUser = async (req, res) => {
     try {
         const { name, email, password } = req.body;
-
+      
         // 1️⃣ Check all fields are provided
         if (!name || !email || !password) {
             return res.status(400).json({ message: 'All fields (name, email, password) are required' });
         }
-        
+
         // 2️⃣ Check if email already exists in User collection
         const existingUser = await User.findOne({ email });
         if (existingUser) {
